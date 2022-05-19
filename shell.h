@@ -1,6 +1,11 @@
 #ifndef _SHELL_H_
 #define _SHELL_H_
 
+/*
+ * File: shell.h
+ * Auth: Alex Yu
+ *       Brennan D Baraban
+ */
 
 #include <fcntl.h>
 #include <signal.h>
@@ -93,13 +98,13 @@ int _strncmp(const char *s1, const char *s2, size_t n);
 
 /* Builtins */
 int (*get_builtin(char *command))(char **args, char **front);
-int shellby_exit(char **args, char **front);
-int shellby_env(char **args, char __attribute__((__unused__)) **front);
-int shellby_setenv(char **args, char __attribute__((__unused__)) **front);
-int shellby_unsetenv(char **args, char __attribute__((__unused__)) **front);
-int shellby_cd(char **args, char __attribute__((__unused__)) **front);
-int shellby_alias(char **args, char __attribute__((__unused__)) **front);
-int shellby_help(char **args, char __attribute__((__unused__)) **front);
+int ethio_exit(char **args, char **front);
+int ethio_env(char **args, char __attribute__((__unused__)) **front);
+int ethio_setenv(char **args, char __attribute__((__unused__)) **front);
+int ethio_unsetenv(char **args, char __attribute__((__unused__)) **front);
+int ethio_cd(char **args, char __attribute__((__unused__)) **front);
+int ethio_alias(char **args, char __attribute__((__unused__)) **front);
+int ethio_help(char **args, char __attribute__((__unused__)) **front);
 
 /* Builtin Helpers */
 char **_copyenv(void);
@@ -133,6 +138,4 @@ void help_unsetenv(void);
 void help_history(void);
 
 int proc_file_commands(char *file_path, int *exe_ret);
-
-#endif
-
+#endif /* _SHELL_H_ */

@@ -1,12 +1,12 @@
 #include "shell.h"
 int (*get_builtin(char *command))(char **args, char **front);
-int shellby_exit(char **args, char **front);
-int shellby_cd(char **args, char __attribute__((__unused__)) **front);
-int shellby_help(char **args, char __attribute__((__unused__)) **front);
+int ethio_exit(char **args, char **front);
+int ethio_cd(char **args, char __attribute__((__unused__)) **front);
+int ethio_help(char **args, char __attribute__((__unused__)) **front);
 
 /**
  * get_builtin - Matches a command with a corresponding
- *               shellby builtin function.
+ *               ethio builtin function.
  * @command: The command to match.
  *
  * Return: A function pointer to the corresponding builtin.
@@ -14,13 +14,13 @@ int shellby_help(char **args, char __attribute__((__unused__)) **front);
 int (*get_builtin(char *command))(char **args, char **front)
 {
 	builtin_t funcs[] = {
-		{ "exit", shellby_exit },
-		{ "env", shellby_env },
-		{ "setenv", shellby_setenv },
-		{ "unsetenv", shellby_unsetenv },
-		{ "cd", shellby_cd },
-		{ "alias", shellby_alias },
-		{ "help", shellby_help },
+		{ "exit", ethio_exit },
+		{ "env", ethio_env },
+		{ "setenv", ethio_setenv },
+		{ "unsetenv", ethio_unsetenv },
+		{ "cd", ethio_cd },
+		{ "alias", ethio_alias },
+		{ "help", ethio_help },
 		{ NULL, NULL }
 	};
 	int i;
@@ -34,8 +34,8 @@ int (*get_builtin(char *command))(char **args, char **front)
 }
 
 /**
- * shellby_exit - Causes normal process termination
- *                for the shellby shell.
+ * ethio_exit - Causes normal process termination
+ *                for the ethio shell.
  * @args: An array of arguments containing the exit value.
  * @front: A double pointer to the beginning of args.
  *
@@ -45,7 +45,7 @@ int (*get_builtin(char *command))(char **args, char **front)
  *
  * Description: Upon returning -3, the program exits back in the main function.
  */
-int shellby_exit(char **args, char **front)
+int ethio_exit(char **args, char **front)
 {
 	int i, len_of_int = 10;
 	unsigned int num = 0, max = 1 << (sizeof(int) * 8 - 1);
@@ -79,7 +79,7 @@ int shellby_exit(char **args, char **front)
 }
 
 /**
- * shellby_cd - Changes the current directory of the shellby process.
+ * ethio_cd - Changes the current directory of the ethio process.
  * @args: An array of arguments.
  * @front: A double pointer to the beginning of args.
  *
@@ -87,7 +87,7 @@ int shellby_exit(char **args, char **front)
  *         If an error occurs - -1.
  *         Otherwise - 0.
  */
-int shellby_cd(char **args, char __attribute__((__unused__)) **front)
+int ethio_cd(char **args, char __attribute__((__unused__)) **front)
 {
 	char **dir_info, *new_line = "\n";
 	char *oldpwd = NULL, *pwd = NULL;
@@ -141,12 +141,12 @@ int shellby_cd(char **args, char __attribute__((__unused__)) **front)
 
 	dir_info[0] = "OLDPWD";
 	dir_info[1] = oldpwd;
-	if (shellby_setenv(dir_info, dir_info) == -1)
+	if (ethio_setenv(dir_info, dir_info) == -1)
 		return (-1);
 
 	dir_info[0] = "PWD";
 	dir_info[1] = pwd;
-	if (shellby_setenv(dir_info, dir_info) == -1)
+	if (ethio_setenv(dir_info, dir_info) == -1)
 		return (-1);
 	if (args[0] && args[0][0] == '-' && args[0][1] != '-')
 	{
@@ -160,14 +160,14 @@ int shellby_cd(char **args, char __attribute__((__unused__)) **front)
 }
 
 /**
- * shellby_help - Displays information about shellby builtin commands.
+ * ethio_help - Displays information about ethio builtin commands.
  * @args: An array of arguments.
  * @front: A pointer to the beginning of args.
  *
  * Return: If an error occurs - -1.
  *         Otherwise - 0.
  */
-int shellby_help(char **args, char __attribute__((__unused__)) **front)
+int ethio_help(char **args, char __attribute__((__unused__)) **front)
 {
 	if (!args[0])
 		help_all();
